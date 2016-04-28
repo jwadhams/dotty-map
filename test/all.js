@@ -5,7 +5,8 @@ var dotty = require("dotty"),
 
 var source = {
   a : "apple",
-  b : { fruit : "banana", vegetable : "beet"}
+  b : { fruit : "banana", vegetable : "beet"},
+  c : { fruit : "coconut", baking : { sweet : "cinnamon", savory : "cheddar"}}
 };
 
 vows.describe("dotty-map").addBatch({
@@ -115,6 +116,24 @@ vows.describe("dotty-map").addBatch({
         assert.isUndefined(dest.b.meat);
       },
     },
+    "attribute missing in middle of longer source":{
+      topic: function(){
+        var dest = {};
+        dottymap(source, dest, {
+          "c.baking.sweet" : "c.baking.sweet",
+          "c.frying.sweet" : "c.frying.sweet"});
+        return dest;
+      },
+      "dest.c exists": function(dest) {
+        assert.isObject(dest.c);
+      },
+      "dest.c.baking exists": function(dest) {
+        assert.isObject(dest.c.baking);
+      },
+      "dest.c.frying was skipped without croaking": function(dest) {
+        assert.isUndefined(dest.c.frying);
+      },
+    }
   },
 
 }).export(module);

@@ -20,6 +20,6 @@
     "tests"
   ],
   "dependencies": {
-    "dotty": "git://github.com/deoxxa/dotty.git#^0.0.2"
+    "dotty": "git://github.com/jwadhams/dotty.git#^0.0.3"
   }
 }
