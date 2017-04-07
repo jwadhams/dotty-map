@@ -103,7 +103,7 @@ vows.describe("dotty-map").addBatch({
     "multi-depth source is missing, sometimes":{
       topic: function(){
         var dest = {};
-        dottymap(source, dest, {"b.meat" : "b.meat","b.fruit":"b.fruit"});
+        dottymap(source, dest, {"b.meat":"b.meat", "b.fruit":"b.fruit"});
         return dest;
       },
       "dest.b exists": function(dest) {
@@ -118,11 +118,9 @@ vows.describe("dotty-map").addBatch({
     },
     "attribute missing in middle of longer source":{
       topic: function(){
-        var dest = {};
-        dottymap(source, dest, {
+        return dottymap(source, {}, {
           "c.baking.sweet" : "c.baking.sweet",
           "c.frying.sweet" : "c.frying.sweet"});
-        return dest;
       },
       "dest.c exists": function(dest) {
         assert.isObject(dest.c);
@@ -135,5 +133,34 @@ vows.describe("dotty-map").addBatch({
       },
     }
   },
+  "Mapped items missing in source are deleted from destination" : {
+    "Missing, key not renamed" : {
+      topic: function(){
+        var dest = {"d":"donuts", "e":"empanadas"};
+        dottymap(source, dest, {"d" : "d"}, true);
+        return dest;
+      },
+      "dest.d is removed": function(dest) {
+        assert.isUndefined(dest.d);
+      },
+      "dest.e is undisturbed": function(dest) {
+        assert.equal(dest.e, 'empanadas');
+      },
+    },
+    "Missing, key is renamed" : {
+      topic: function(){
+        var dest = {"d":"donuts", "e":"empanadas"};
+        dottymap(source, dest, {"d" : "e"}, true);
+        return dest;
+      },
+      "dest.e is removed": function(dest) {
+        assert.isUndefined(dest.e);
+      },
+      "dest.d is undisturbed": function(dest) {
+        assert.equal(dest.d, 'donuts');
+      },
+    }
+
+  }
 
 }).export(module);
