@@ -1,10 +1,10 @@
 {
   "name": "dotty-map",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Rename indexes on JavaScript objects, e.g. to normalize an API response into your internal format.",
   "main": "dotty-map.js",
   "dependencies": {
-    "dotty": "git+https://github.com/jwadhams/dotty.git"
+    "dotty": "^0.1.2"
   },
   "devDependencies": {
     "vows": "^0.8.1"

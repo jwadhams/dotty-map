@@ -1,5 +1,4 @@
-var dotty = require("dotty"),
-    dottymap = require("../dotty-map.js"),
+var dottymap = require("../dotty-map.js"),
     vows = require("vows"),
     assert = require("assert");
 
